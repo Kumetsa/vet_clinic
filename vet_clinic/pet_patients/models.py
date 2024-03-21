@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from vet_clinic.patients.validators import validate_positive_weight
+from vet_clinic.pet_patients.validators import validate_positive_weight
 
 UserModel = get_user_model()
 
@@ -130,3 +130,28 @@ class PetPatient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Treatment(models.Model):
+    MAX_LENGTH_TREATMENT_TYPE = 100
+
+    patient = models.ForeignKey(
+        PetPatient,
+        on_delete=models.CASCADE,
+    )
+
+    doctor = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
+
+    date = models.DateField()
+
+    treatment_type = models.CharField(
+        max_length=MAX_LENGTH_TREATMENT_TYPE,
+    )
+
+    description = models.TextField()
+
+    def __str__(self):
+        return f"Treatment for {self.patient.name} on {self.date}"

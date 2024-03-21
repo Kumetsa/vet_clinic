@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My apps
-    'vet_clinic.accounts'
+    'vet_clinic.accounts',
+    'vet_clinic.pet_patients'
 ]
 
 MIDDLEWARE = [
