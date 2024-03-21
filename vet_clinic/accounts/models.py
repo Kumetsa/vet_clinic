@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import models as auth_models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import Group
 
 from vet_clinic.accounts.managers import VetClinicUserManager
 
@@ -32,9 +33,27 @@ class VetClinicUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         ),
     )
 
+    is_clerk = models.BooleanField(
+        _("clerk status"),
+        default=False,
+    )
+    is_doctor = models.BooleanField(
+        _("doctor status"),
+        default=False,
+    )
+
     USERNAME_FIELD = "email"
 
     objects = VetClinicUserManager()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_clerk:
+            clerk_group, _ = Group.objects.get_or_create(name='Clerks')
+            self.groups.add(clerk_group)
+        if self.is_doctor:
+            doctor_group, _ = Group.objects.get_or_create(name='Doctors')
+            self.groups.add(doctor_group)
 
 
 class Profile(models.Model):
