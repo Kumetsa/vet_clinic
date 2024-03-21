@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     # My apps
     'vet_clinic.accounts',
-    'vet_clinic.pet_patients'
+    'vet_clinic.pet_patients',
+    'vet_clinic.web',
 ]
 
 MIDDLEWARE = [
