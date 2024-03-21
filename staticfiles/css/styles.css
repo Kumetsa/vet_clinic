@@ -1,0 +1,24 @@
+.navbar {
+    background-color: #f0f0f0;  /* Very light gray */
+    color: #2e5a69;  /* Navy blue */
+}
+/*TODO: FIX THE NAV BAR COLORS*/
+
+.navbar-light .navbar-nav .nav-link {
+    color: #2e5a69;  /* Navy blue */
+}
+
+footer{
+    background-color: #f0f0f0;  /* Very light gray */
+    color: #2e5a69;  /* Navy blue */
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+footer div{
+    background-color: #f0f0f0;  /* Very light gray */
+    color: #2e5a69;  /* Navy blue */
+}

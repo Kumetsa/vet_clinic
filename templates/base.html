@@ -1,0 +1,68 @@
+{% load static %}  <!-- Load static files like CSS -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet Clinic</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-lightgray">
+            <a class="navbar-brand text-navy" href="#"><h1>Vet Clinic</h1></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Create Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Create appointment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                    <!-- Add more nav items as needed -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <!-- Main content goes here -->
+        <h1>Welcome to the Vet Clinic</h1>
+        <p class="text-navy">This is the main content on index page.</p>
+    </main>
+
+    <footer class="bg-lightgray text-light py-3">
+        <div class="container text-center">
+            <p>&copy; 2024 Vet Clinic. All rights reserved.</p>
+            <p>Contact us: kymeca@duck.com | Phone: +359 883 366 857</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

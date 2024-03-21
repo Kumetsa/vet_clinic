@@ -133,6 +133,7 @@ class PetPatient(models.Model):
 
 
 class Treatment(models.Model):
+    MAX_LENGTH_DIAGNOSE_TYPE = 50
     MAX_LENGTH_TREATMENT_TYPE = 100
 
     patient = models.ForeignKey(
@@ -147,6 +148,10 @@ class Treatment(models.Model):
 
     date = models.DateField()
 
+    diagnose = models.CharField(
+        max_length=MAX_LENGTH_DIAGNOSE_TYPE,
+    )
+
     treatment_type = models.CharField(
         max_length=MAX_LENGTH_TREATMENT_TYPE,
     )
@@ -159,6 +164,13 @@ class Treatment(models.Model):
     class Appointment(models.Model):
         MAX_LENGTH_PURPOSE = 255
 
+        date_time = models.DateTimeField()
+
+        purpose = models.CharField(
+            max_length=MAX_LENGTH_PURPOSE,
+            blank=True,
+        )
+
         patient = models.ForeignKey(
             PetPatient,
             on_delete=models.CASCADE,
@@ -169,13 +181,11 @@ class Treatment(models.Model):
             on_delete=models.CASCADE,
         )
 
-        date_time = models.DateTimeField()
-
-        purpose = models.CharField(
-            max_length=MAX_LENGTH_PURPOSE,
-            blank=True,
+        created_by = models.ForeignKey(
+            UserModel,
+            on_delete=models.CASCADE,
+            related_name='created_by',
         )
 
         def __str__(self):
             return f"Appointment for {self.patient.name} with Dr. {self.doctor.full_name()} at {self.date_time}"
-        
