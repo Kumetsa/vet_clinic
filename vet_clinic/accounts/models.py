@@ -36,3 +36,43 @@ class VetClinicUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     objects = VetClinicUserManager()
 
+
+class Profile(models.Model):
+    MAX_FIRST_NAME_LENGTH = 30
+    MAX_LAST_NAME_LENGTH = 30
+
+    first_name = models.CharField(
+        max_length=MAX_FIRST_NAME_LENGTH,
+        null=True,
+        blank=True,
+    )
+
+    last_name = models.CharField(
+        max_length=MAX_LAST_NAME_LENGTH,
+        null=True,
+        blank=True,
+    )
+
+    date_of_birth = models.DateField(
+        null=True,
+        blank=True,
+    )
+
+    # TODO: make this image field to upload the picture.
+    profile_picture = models.URLField(
+        null=True,
+        blank=True,
+    )
+
+    user = models.OneToOneField(
+        VetClinicUser,
+        primary_key=True,
+        on_delete=models.CASCADE,
+    )
+
+    @property
+    def full_name(self):
+        if self.first_name and self.first_name:
+            return f"{self.first_name} {self.last_name}"
+
+        return self.first_name or self.last_name
