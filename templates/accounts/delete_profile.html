@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Confirm Deletion</h2>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to delete your profile?</p>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'details_profile' pk=object.pk %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

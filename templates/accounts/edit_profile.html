@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="container mt-4">
+    <h2>Update Profile</h2>
+    <form action="{% url 'edit_profile' pk=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
+{% endblock %}

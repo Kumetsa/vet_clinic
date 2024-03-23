@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Profile Details</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Email:</strong> {{ profile.user.email }}</li>
+                <li class="list-group-item"><strong>First Name:</strong> {{ profile.first_name }}</li>
+                <li class="list-group-item"><strong>Last Name:</strong> {{ profile.last_name }}</li>
+                <li class="list-group-item"><strong>Date of Birth:</strong> {{ profile.date_of_birth }}</li>
+                <li class="list-group-item"><strong>Job title:</strong> {% if profile.user.is_doctor %}Doctor{% elif profile.user.is_clerk %}Clerk{% endif %}</li>
+            </ul>
+        </div>
+        {% if object.user.pk == request.user.pk %}
+            <div class="card-footer d-flex justify-content-between">
+                <a href="{% url 'edit_profile' pk=object.user.pk %}" class="btn btn-primary">Edit Profile</a>
+                <a href="{% url 'delete_profile' pk=object.user.pk %}" class="btn btn-danger">Delete Profile</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
