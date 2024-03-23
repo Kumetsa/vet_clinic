@@ -35,11 +35,11 @@
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="{% url 'login_user' %}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Create Profile</a>
