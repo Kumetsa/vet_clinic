@@ -12,7 +12,6 @@
                 <li class="list-group-item"><strong>First Name:</strong> {{ profile.first_name }}</li>
                 <li class="list-group-item"><strong>Last Name:</strong> {{ profile.last_name }}</li>
                 <li class="list-group-item"><strong>Date of Birth:</strong> {{ profile.date_of_birth }}</li>
-                <li class="list-group-item"><strong>Job title:</strong> {% if profile.user.is_doctor %}Doctor{% elif profile.user.is_clerk %}Clerk{% endif %}</li>
             </ul>
         </div>
         {% if object.user.pk == request.user.pk %}

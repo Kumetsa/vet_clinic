@@ -20,11 +20,11 @@
                             <a class="nav-link" href="{% url 'details_profile' pk=user.profile.pk %}">My Profile</a>
                         </li>
                     {% endif %}
-                    {% if user.is_clerk %}
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">Create Appointment</a>
                         </li>
-                    {% endif %}
+
                     {% if user.is_doctor %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">My Patients</a>

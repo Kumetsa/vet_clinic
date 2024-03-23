@@ -6,29 +6,6 @@ from vet_clinic.pet_patients.validators import validate_positive_weight
 UserModel = get_user_model()
 
 
-class Owner(models.Model):
-    MAX_LENGTH_FIRST_NAME = 50
-    MAX_LENGTH_LAST_NAME = 50
-    MAX_LENGTH_PHONE = 30
-
-    first_name = models.CharField(
-        max_length=MAX_LENGTH_FIRST_NAME,
-    )
-
-    last_name = models.CharField(
-        max_length=MAX_LENGTH_LAST_NAME,
-    )
-
-    email = models.EmailField()
-
-    phone_number = models.CharField(
-        max_length=MAX_LENGTH_PHONE,
-    )
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-
-
 class Species(models.Model):
     MAX_LENGTH_SPECIES_NAME = 20
 
@@ -90,9 +67,11 @@ class PetPatient(models.Model):
 
     date_of_birth = models.DateField()
 
-    owner = models.ForeignKey(
-        Owner,
-        on_delete=models.RESTRICT,
+    # Link the pet directly to the user
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name='pets',
     )
 
     doctor = models.ForeignKey(

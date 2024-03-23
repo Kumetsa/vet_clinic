@@ -33,10 +33,6 @@ class VetClinicUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         ),
     )
 
-    is_clerk = models.BooleanField(
-        _("clerk status"),
-        default=False,
-    )
     is_doctor = models.BooleanField(
         _("doctor status"),
         default=False,
@@ -48,9 +44,6 @@ class VetClinicUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.is_clerk:
-            clerk_group, _ = Group.objects.get_or_create(name='Clerks')
-            self.groups.add(clerk_group)
         if self.is_doctor:
             doctor_group, _ = Group.objects.get_or_create(name='Doctors')
             self.groups.add(doctor_group)
