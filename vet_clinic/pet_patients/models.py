@@ -6,8 +6,10 @@ from vet_clinic.pet_patients.validators import validate_positive_weight
 UserModel = get_user_model()
 
 
-class Species(models.Model):
-    MAX_LENGTH_SPECIES_NAME = 20
+class PetPatient(models.Model):
+    MAX_LENGTH_PATIENT_NAME = 50
+    MAX_LENGTH_SPECIES_NAME = 25
+    MAX_LENGTH_BREED_NAME = 100
 
     DOG = 'Dog'
     CAT = 'Cat'
@@ -36,27 +38,12 @@ class Species(models.Model):
     ]
 
     name = models.CharField(
-        max_length=MAX_LENGTH_SPECIES_NAME,
-        choices=SPECIES_CHOICES,
-        unique=True,
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class PetPatient(models.Model):
-    MAX_LENGTH_PATIENT_NAME = 50
-    MAX_LENGTH_SPECIES_NAME = 100
-    MAX_LENGTH_BREED_NAME = 100
-
-    name = models.CharField(
         max_length=MAX_LENGTH_PATIENT_NAME,
     )
 
-    species = models.ForeignKey(
-        Species,
-        on_delete=models.CASCADE,
+    species = models.CharField(
+        max_length=MAX_LENGTH_SPECIES_NAME,
+        choices=SPECIES_CHOICES,
     )
 
     breed = models.CharField(
@@ -66,20 +53,6 @@ class PetPatient(models.Model):
     )
 
     date_of_birth = models.DateField()
-
-    # Link the pet directly to the user
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-        related_name='pets',
-    )
-
-    doctor = models.ForeignKey(
-        UserModel,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
 
     weight = models.FloatField(
         validators=[validate_positive_weight],
@@ -105,6 +78,19 @@ class PetPatient(models.Model):
 
     is_active = models.BooleanField(
         default=True,
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name='pets',
+    )
+
+    doctor = models.ForeignKey(
+        UserModel,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
@@ -140,31 +126,32 @@ class Treatment(models.Model):
     def __str__(self):
         return f"Treatment for {self.patient.name} on {self.date}"
 
-    class Appointment(models.Model):
-        MAX_LENGTH_PURPOSE = 255
 
-        date_time = models.DateTimeField()
+class Appointment(models.Model):
+    MAX_LENGTH_PURPOSE = 255
 
-        purpose = models.CharField(
-            max_length=MAX_LENGTH_PURPOSE,
-            blank=True,
-        )
+    date_time = models.DateTimeField()
 
-        patient = models.ForeignKey(
-            PetPatient,
-            on_delete=models.CASCADE,
-        )
+    purpose = models.CharField(
+        max_length=MAX_LENGTH_PURPOSE,
+        blank=True,
+    )
 
-        doctor = models.ForeignKey(
-            UserModel,
-            on_delete=models.CASCADE,
-        )
+    patient = models.ForeignKey(
+        PetPatient,
+        on_delete=models.CASCADE,
+    )
 
-        created_by = models.ForeignKey(
-            UserModel,
-            on_delete=models.CASCADE,
-            related_name='created_by',
-        )
+    doctor = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
 
-        def __str__(self):
-            return f"Appointment for {self.patient.name} with Dr. {self.doctor.full_name()} at {self.date_time}"
+    created_by = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name='created_by',
+    )
+
+    def __str__(self):
+        return f"Appointment for {self.patient.name} with Dr. {self.doctor.full_name()} at {self.date_time}"

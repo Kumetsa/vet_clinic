@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+  <h2>Create New Pet</h2>
+  <form action="{% url 'create_pet_patient' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+{% endblock %}

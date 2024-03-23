@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{#TODO: Make it more flashy#}
+{#TODO: Add edit and delete buttons and details#}
+
+
+{% block main_content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">My Pets</h2>
+        </div>
+        <div class="card-body">
+            {% if pets %}
+            <ul class="list-group">
+                {% for pet in pets %}
+                <li class="list-group-item">{{ pet.name }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You don't have any pets yet.</p>
+            {% endif %}
+            <a href="{% url 'create_pet_patient' %}" class="btn btn-primary">Create Pet</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

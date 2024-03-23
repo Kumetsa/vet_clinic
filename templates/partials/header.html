@@ -25,6 +25,10 @@
                             <a class="nav-link" href="#">Create Appointment</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'my_pets' pk=user.pk %}">My Pets</a>
+                        </li>
+
                     {% if user.is_doctor %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">My Patients</a>

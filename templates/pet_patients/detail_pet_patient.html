@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ pet.name }}</h2>
+  <p><strong>Species:</strong> {{ pet.species }}</p>
+  <p><strong>Breed:</strong> {{ pet.breed }}</p>
+  <p><strong>Date of Birth:</strong> {{ pet.date_of_birth }}</p>
+  <p><strong>Weight:</strong> {{ pet.weight }}</p>
+  <p><strong>Gender:</strong> {{ pet.get_gender_display }}</p>
+  <p><strong>Color:</strong> {{ pet.color }}</p>
+  <p><strong>Notes:</strong> {{ pet.notes }}</p>
+  <a href="{% url 'edit_pet_patient' pk=pet.pk %}" class="btn btn-primary">Edit</a>
+  <a href="{% url 'delete_pet_patient' pk=pet.pk %}" class="btn btn-danger">Delete</a>
+{% endblock %}
