@@ -34,6 +34,8 @@ class Appointment(models.Model):
         related_name='created_by',
     )
 
+    is_accepted = models.BooleanField()
+
     def __str__(self):
         doctor_name = self.doctor.full_name if self.doctor else ""
         formatted_date_time = self.date_time.strftime("%Y-%m-%d %H:%M")

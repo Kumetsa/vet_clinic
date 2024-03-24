@@ -15,28 +15,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                    {% if user.profile %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'details_profile' pk=user.profile.pk %}">My Profile</a>
-                        </li>
-                    {% endif %}
-
+                    {% if not user.is_doctor %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'user_appointment_list' pk=user.pk %}">My Appointments</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'my_pets' pk=user.pk %}">My Pets</a>
                         </li>
-
-                    {% if user.is_doctor %}
+                    {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">My Patients</a>
+                            <a class="nav-link" href="{% url 'my_patients_list' %}">My Patients</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">My Appointments</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Unscheduled Appointments</a>
+                        </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'details_profile' pk=user.profile.pk %}">My Profile</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
                     </li>

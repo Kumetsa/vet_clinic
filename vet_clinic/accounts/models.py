@@ -52,6 +52,7 @@ class VetClinicUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 class Profile(models.Model):
     MAX_FIRST_NAME_LENGTH = 30
     MAX_LAST_NAME_LENGTH = 30
+    MAX_LENGTH_PHONE = 25
 
     first_name = models.CharField(
         max_length=MAX_FIRST_NAME_LENGTH,
@@ -72,6 +73,12 @@ class Profile(models.Model):
 
     # TODO: make this image field to upload the picture.
     profile_picture = models.URLField(
+        null=True,
+        blank=True,
+    )
+
+    phone = models.CharField(
+        max_length=MAX_LENGTH_PHONE,
         null=True,
         blank=True,
     )

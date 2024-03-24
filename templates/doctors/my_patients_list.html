@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+  <h2>My Patients</h2>
+  <div class="row">
+    {% for patient in patients %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ patient.name }}</h5>
+            <p class="card-text">
+              <strong>Species:</strong> {{ patient.species }}<br>
+              <strong>Breed:</strong> {{ patient.breed }}
+            </p>
+            <a href="{% url 'pet_patient_detail' pk=patient.pk %}" class="btn btn-primary">Details</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

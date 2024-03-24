@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ pet_patient.name }} - Patient Details</h2>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li><strong>Species:</strong> {{ pet_patient.species }}</li>
+            <li><strong>Breed:</strong> {{ pet_patient.breed }}</li>
+            <li><strong>Date of Birth:</strong> {{ pet_patient.date_of_birth }}</li>
+            <li><strong>Weight:</strong> {{ pet_patient.weight|floatformat:2 }} kg</li>
+            <li><strong>Gender:</strong> {{ pet_patient.get_gender_display }}</li>
+            <li><strong>Color:</strong> {{ pet_patient.color }}</li>
+            <li><strong>Notes:</strong> {{ pet_patient.notes }}</li>
+            <li><strong>Owner:</strong> {{ pet_patient.user.profile.full_name }} ({{ pet_patient.user.email }})</li>
+          </ul>
+
+          <form action="{% url 'assign_treatment' pk=pet_patient.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Assign Treatment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>Treatments</h2>
+        </div>
+        <div class="card-body">
+          {% if treatments %}
+            <div class="list-group">
+              {% for treatment in treatments %}
+                <a href="#" class="list-group-item list-group-item-action">
+                  <h5 class="mb-1">Date: {{ treatment.date }}</h5>
+                  <p class="mb-1">Diagnose: {{ treatment.diagnose }}</p>
+                  <p class="mb-1">Treatment Type: {{ treatment.treatment_type }}</p>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal{{ treatment.pk }}">Details</button>
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p>No treatments found.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Treatment Details -->
+  {% for treatment in treatments %}
+    <div class="modal fade" id="detailsModal{{ treatment.pk }}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{ treatment.pk }}" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detailsModalLabel{{ treatment.pk }}">Treatment Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>Diagnose:</strong> {{ treatment.diagnose }}<br>
+            <strong>Treatment Type:</strong> {{ treatment.treatment_type }}<br>
+            <strong>Description:</strong> {{ treatment.description }}<br>
+            <!-- Add more fields if necessary -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

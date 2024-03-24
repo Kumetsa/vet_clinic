@@ -8,7 +8,11 @@
     color: #2e5a69;  /* Navy blue */
 }
 
-footer{
+main.container {
+    margin-bottom: 100px; /* Adjust the value as needed */
+}
+
+footer {
     background-color: #f0f0f0;  /* Very light gray */
     color: #2e5a69;  /* Navy blue */
     padding: 10px 20px;
@@ -16,8 +20,8 @@ footer{
     bottom: 0;
     width: 100%;
     text-align: center;
+    z-index: 999; /* Ensure the footer is on top of other content */
 }
-
 footer div{
     background-color: #f0f0f0;  /* Very light gray */
     color: #2e5a69;  /* Navy blue */
@@ -37,4 +41,8 @@ footer div{
 
 .edit-pet-form .btn-primary {
     width: 150px;
+}
+
+main.container {
+    margin-bottom: 100px; /* Adjust the value as needed */
 }
