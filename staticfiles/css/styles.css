@@ -22,3 +22,19 @@ footer div{
     background-color: #f0f0f0;  /* Very light gray */
     color: #2e5a69;  /* Navy blue */
 }
+
+.edit-pet-form .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-pet-form label {
+    font-weight: bold;
+}
+
+.edit-pet-form .col-sm-9 {
+    padding-left: 0;
+}
+
+.edit-pet-form .btn-primary {
+    width: 150px;
+}

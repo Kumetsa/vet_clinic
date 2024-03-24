@@ -1,10 +1,63 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <h2>Edit Pet</h2>
-  <form action="{% url 'edit_pet_patient' pk=petpatient.pk%}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-  </form>
+{% block main_content %}
+<div class="container mt-4">
+    <h2>Edit Pet</h2>
+    <form action="{% url 'edit_pet_patient' pk=petpatient.pk %}" method="post" class="edit-pet-form">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Name:</label>
+            <div class="col-sm-9">
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Species:</label>
+            <div class="col-sm-9">
+                {{ form.species }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Breed:</label>
+            <div class="col-sm-9">
+                {{ form.breed }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Date of Birth:</label>
+            <div class="col-sm-9">
+                {{ form.date_of_birth }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Weight:</label>
+            <div class="col-sm-9">
+                {{ form.weight }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Gender:</label>
+            <div class="col-sm-9">
+                {{ form.gender }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Color:</label>
+            <div class="col-sm-9">
+                {{ form.color }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Notes:</label>
+            <div class="col-sm-9">
+                {{ form.notes }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

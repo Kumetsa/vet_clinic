@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {#TODO: Make it more flashy#}
-{#TODO: Add edit and delete buttons and details#}
 
 
 {% block main_content %}
@@ -14,7 +13,14 @@
             {% if pets %}
             <ul class="list-group">
                 {% for pet in pets %}
-                <li class="list-group-item">{{ pet.name }}</li>
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{ pet.name }}</span>
+                        <div class="btn-group" role="group" aria-label="Pet Actions">
+                            <a href="{% url 'detail_pet_patient' pk=pet.pk %}" class="btn btn-info">Details</a>
+                        </div>
+                    </div>
+                </li>
                 {% endfor %}
             </ul>
             {% else %}

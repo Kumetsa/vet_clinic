@@ -32,3 +32,7 @@ class PetPatientBaseForm(forms.ModelForm):
 
 class PetPatientCreateForm(PetPatientBaseForm):
     pass
+
+
+class PetPatientEditForm(PetPatientBaseForm):
+    pass

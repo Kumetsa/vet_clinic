@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block main_content %}
   <h2>Confirm Deletion</h2>
-  <p>Are you sure you want to delete "{{ pet.name }}"?</p>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a href="{% url 'detail_pet_patient' pk=pet.pk %}" class="btn btn-secondary">Cancel</a>
+  <p>Are you sure you want to delete "{{ petpatient.name }}"?</p>
+  <form action="{% url 'delete_pet_patient' pk=petpatient.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'detail_pet_patient' pk=petpatient.pk %}" class="btn btn-secondary">Cancel</a>
   </form>
 {% endblock %}
