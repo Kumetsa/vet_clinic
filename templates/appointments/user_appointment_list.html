@@ -2,17 +2,39 @@
 
 {% block main_content %}
   <h2>Your Appointments</h2>
-  {% if appointments %}
-    <ul>
+  <div class="row">
+    {% if appointments %}
       {% for appointment in appointments %}
-        <li>
-          {{ appointment }}
-          <a href="{% url 'details_appointment' pk=appointment.pk %}" class="btn btn-primary">Details</a>
-        </li>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ appointment.date_time }}</h5>
+              <hr>
+              <p class="card-text"><strong>Purpose: </strong>{{ appointment.purpose }}</p>
+              <p class="card-text"><strong>Patient: </strong> {{ appointment.patient.name }}</p>
+              {% if appointment.patient.user.profile.full_name %}
+                <p class="card-text"><strong>Created by: </strong> {{ appointment.patient.user.profile.full_name }}</p>
+              {% else %}
+                <p class="card-text"><strong>Created by: </strong> {{ appointment.patient.user }}</p>
+              {% endif %}
+              {% if not appointment.is_accepted %}
+                <p class="card-text"><strong>Assigned Doctor:</strong> {{ appointment.doctor.full_name }}</p>
+                <form action="{% url 'delete_appointment' pk=appointment.pk %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              {% else %}
+                <p>Appointment not accepted yet.</p>
+                <button class="btn btn-danger" disabled>Delete</button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
       {% endfor %}
-    </ul>
-  {% else %}
-    <p>No appointments found.</p>
-  {% endif %}
+    {% else %}
+      <p>No appointments found.</p>
+    {% endif %}
+  </div>
   <a href="{% url 'create_appointment' pk=request.user.pk %}" class="btn btn-success">Create New Appointment</a>
 {% endblock %}
+
