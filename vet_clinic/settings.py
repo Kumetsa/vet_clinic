@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'vet_clinic.accounts',
     'vet_clinic.pet_patients',
     'vet_clinic.web',
+    'vet_clinic.appointments',
 ]
 
 MIDDLEWARE = [

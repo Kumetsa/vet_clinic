@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+  <h2>Your Appointments</h2>
+  {% if appointments %}
+    <ul>
+      {% for appointment in appointments %}
+        <li>
+          {{ appointment }}
+          <a href="{% url 'details_appointment' pk=appointment.pk %}" class="btn btn-primary">Details</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No appointments found.</p>
+  {% endif %}
+  <a href="{% url 'create_appointment' pk=request.user.pk %}" class="btn btn-success">Create New Appointment</a>
+{% endblock %}

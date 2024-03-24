@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Delete Appointment</h2>
+  <p>Are you sure you want to delete this appointment?</p>
+  <dl>
+    <dt>Date and Time:</dt>
+    <dd>{{ appointment.date_time }}</dd>
+    <dt>Purpose:</dt>
+    <dd>{{ appointment.purpose }}</dd>
+    <dt>Patient:</dt>
+    <dd>{{ appointment.patient }}</dd>
+    <dt>Doctor:</dt>
+    <dd>{{ appointment.doctor }}</dd>
+  </dl>
+  <form action="{% url 'delete_appointment' pk=appointment.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+    <a href="{% url 'user_appointment_list' pk=user.pk %}">Cancel</a>
+  </form>
+{% endblock %}

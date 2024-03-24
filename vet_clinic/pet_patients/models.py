@@ -126,32 +126,3 @@ class Treatment(models.Model):
     def __str__(self):
         return f"Treatment for {self.patient.name} on {self.date}"
 
-
-class Appointment(models.Model):
-    MAX_LENGTH_PURPOSE = 255
-
-    date_time = models.DateTimeField()
-
-    purpose = models.CharField(
-        max_length=MAX_LENGTH_PURPOSE,
-        blank=True,
-    )
-
-    patient = models.ForeignKey(
-        PetPatient,
-        on_delete=models.CASCADE,
-    )
-
-    doctor = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-    )
-
-    created_by = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-        related_name='created_by',
-    )
-
-    def __str__(self):
-        return f"Appointment for {self.patient.name} with Dr. {self.doctor.full_name()} at {self.date_time}"
