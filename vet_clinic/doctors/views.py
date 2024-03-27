@@ -1,8 +1,10 @@
 from django.contrib.auth import mixins as auth_mixins
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import generic as views
+from django.views.decorators.http import require_POST
 
+from vet_clinic.appointments.models import Appointment
 from vet_clinic.doctors.forms import AssignTreatmentForm
 from vet_clinic.pet_patients.models import PetPatient, Treatment
 
@@ -44,3 +46,31 @@ class AssignTreatmentView(auth_mixins.LoginRequiredMixin, views.FormView):
         Treatment.objects.create(**treatment_data)
         return redirect('pet_patient_detail', pk=patient_id)
 
+
+class UnscheduledAppointmentsView(auth_mixins.LoginRequiredMixin, views.ListView):
+    template_name = 'doctors/unscheduled_appointments.html'
+    queryset = Appointment.objects.filter(doctor__isnull=True)
+    context_object_name = 'unscheduled_appointments'
+
+
+@method_decorator(require_POST, name='dispatch')
+class AcceptAppointmentView(views.View):
+    def post(self, request, pk):
+        appointment = get_object_or_404(Appointment, pk=pk)
+        if appointment.is_accepted:
+            # Appointment already accepted, redirect back to unscheduled appointments
+            return redirect('unscheduled_appointments')
+        else:
+            # Mark the appointment as accepted and assign the doctor
+            appointment.is_accepted = True
+            appointment.doctor = request.user
+            appointment.save()
+            return redirect('unscheduled_appointments')
+
+class DeclineAppointmentView(views.View):
+    def post(self, request, pk):
+        appointment = Appointment.objects.get(pk=pk)
+        appointment.delete()  # Delete the appointment
+        return redirect('unscheduled_appointments')
+
+# TODO: implement unscheduleд appointments and my appointment

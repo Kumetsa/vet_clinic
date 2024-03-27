@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+  <div class="container">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2>Unscheduled Appointments</h2>
+        <div class="row">
+          {% for appointment in unscheduled_appointments %}
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ appointment.date_time }}</h5>
+                  <p class="card-text"><strong>Purpose:</strong> {{ appointment.purpose }}</p>
+                  {% if appointment.patient %}
+                    <p class="card-text"><strong>Patient:</strong> {{ appointment.patient.name }}</p>
+                    {% if appointment.patient.picture %}
+                      <img src="{{ appointment.patient.picture.url }}" class="img-fluid" alt="{{ appointment.patient.name }}">
+                    {% endif %}
+                  {% endif %}
+                  <form action="{% url 'accept_appointment' pk=appointment.pk %}" method="post" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success mr-2">Accept</button>
+                  </form>
+                  <form action="{% url 'decline_appointment' pk=appointment.pk %}" method="post" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Decline</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <div class="col">
+              <div class="alert alert-info" role="alert">
+                No unscheduled appointments.
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

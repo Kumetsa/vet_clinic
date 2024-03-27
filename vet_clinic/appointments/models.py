@@ -46,3 +46,5 @@ class Appointment(models.Model):
 
 
 
+#TODO: improve to be able to choose only during working hours.
+
