@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+  <h2>My Appointments</h2>
+  <div class="row">
+    {% if my_appointments %}
+      {% for appointment in my_appointments %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ appointment.date_time }}</h5>
+              <p class="card-text"><strong>Patient Name:</strong> {{ appointment.patient.name }}</p>
+              <button class="btn btn-sm btn-outline-secondary ml-auto" data-toggle="collapse" data-target="#collapseInfo{{ appointment.pk }}" aria-expanded="false" aria-controls="collapseInfo{{ appointment.pk }}">
+                Show Details
+              </button>
+              <div class="collapse" id="collapseInfo{{ appointment.pk }}">
+                <div>
+                  <p><strong>Purpose:</strong> {{ appointment.purpose }}</p>
+                  <p><strong>Species:</strong> {{ appointment.patient.species }}</p>
+                  <p><strong>Breed:</strong> {{ appointment.patient.breed }}</p>
+                  <p><strong>Date of Birth:</strong> {{ appointment.patient.date_of_birth }}</p>
+                  <p><strong>Weight:</strong> {{ appointment.patient.weight }}</p>
+                  <p><strong>Gender:</strong> {{ appointment.patient.get_gender_display }}</p>
+                  <p><strong>Color:</strong> {{ appointment.patient.color }}</p>
+                  <p><strong>Notes:</strong> {{ appointment.patient.notes }}</p>
+                  <p><strong>Owner:</strong> {{ appointment.patient.user.profile.full_name }} ({{ appointment.patient.user.email }})</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No appointments found.</p>
+    {% endif %}
+  </div>
+{% endblock %}

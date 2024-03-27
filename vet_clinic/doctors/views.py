@@ -5,6 +5,7 @@ from django.views import generic as views
 from django.views.decorators.http import require_POST
 
 from vet_clinic.appointments.models import Appointment
+from vet_clinic.appointments.views import AppointmentDetailView
 from vet_clinic.doctors.forms import AssignTreatmentForm
 from vet_clinic.pet_patients.models import PetPatient, Treatment
 
@@ -67,10 +68,17 @@ class AcceptAppointmentView(views.View):
             appointment.save()
             return redirect('unscheduled_appointments')
 
+
 class DeclineAppointmentView(views.View):
     def post(self, request, pk):
         appointment = Appointment.objects.get(pk=pk)
         appointment.delete()  # Delete the appointment
         return redirect('unscheduled_appointments')
 
-# TODO: implement unscheduleд appointments and my appointment
+
+class MyAppointmentsView(auth_mixins.LoginRequiredMixin, views.ListView):
+    template_name = 'doctors/my_appointments.html'
+    context_object_name = 'my_appointments'
+
+    def get_queryset(self):
+        return Appointment.objects.filter(doctor=self.request.user, is_accepted=True)
